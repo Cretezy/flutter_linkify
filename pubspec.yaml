@@ -1,0 +1,12 @@
+name: flutter_linkify
+description: Allow inline links in text for Flutter.
+version: 1.0.0
+author: Charles Crete <charles@cretezy.com>
+homepage: https://github.com/Cretezy/flutter_linkify
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
