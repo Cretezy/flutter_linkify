@@ -25,14 +25,16 @@ class TextElement extends LinkifyElement {
 final _linkifyRegex =
     RegExp(r"(.*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)", caseSensitive: false);
 
-List<LinkifyElement> linkifiy(String text) {
+List<LinkifyElement> linkify(String text) {
   final list = List<LinkifyElement>();
+
+  if (text == null || text.isEmpty) {
+    return list;
+  }
 
   final match = _linkifyRegex.firstMatch(text);
   if (match == null) {
-    if (text.isNotEmpty) {
-      list.add(TextElement(text));
-    }
+    list.add(TextElement(text));
   } else {
     text = text.replaceFirst(_linkifyRegex, "");
 
@@ -44,7 +46,7 @@ List<LinkifyElement> linkifiy(String text) {
       list.add(LinkElement(match.group(2)));
     }
 
-    list.addAll(linkifiy(text));
+    list.addAll(linkify(text));
   }
 
   return list;

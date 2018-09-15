@@ -5,6 +5,7 @@ import 'package:flutter_linkify/linkify.dart';
 /// Callback with URL to open
 typedef LinkCallback(String url);
 
+/// Turns URLs into links
 class Linkify extends StatelessWidget {
   /// Text to be linkified
   final String text;
@@ -57,7 +58,7 @@ TextSpan buildTextSpan(
     }
   }
 
-  final elements = linkifiy(text);
+  final elements = linkify(text);
 
   return TextSpan(
       children: elements.map<TextSpan>((element) {
