@@ -46,4 +46,4 @@ Linkify(
 
 Full example can be found at [`example/lib/main.dart`](example/lib/main.dart).
 
-![Example Screenshot](example/screenshot.png)
+![Example Screenshot](https://github.com/Cretezy/flutter_linkify/raw/master/example/screenshot.png)
