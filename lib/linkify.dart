@@ -1,5 +1,6 @@
 abstract class LinkifyElement {}
 
+/// Represents an element containing a link
 class LinkElement extends LinkifyElement {
   final String url;
 
@@ -11,6 +12,7 @@ class LinkElement extends LinkifyElement {
   }
 }
 
+/// Represents an element containing text
 class TextElement extends LinkifyElement {
   final String text;
 
@@ -25,6 +27,7 @@ class TextElement extends LinkifyElement {
 final _linkifyRegex =
     RegExp(r"(.*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)", caseSensitive: false);
 
+/// Turns [text] into a list of [LinkifyElement]
 List<LinkifyElement> linkify(String text) {
   final list = List<LinkifyElement>();
 
