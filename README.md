@@ -1,8 +1,8 @@
-# [flutter_linkify](https://pub.dartlang.org/packages/flutter_linkify) [![pub package](https://img.shields.io/pub/v/flutter_linkify.svg)](https://pub.dartlang.org/packages/flutter_linkify)
+# `flutter_linkify` [![pub package](https://img.shields.io/pub/v/flutter_linkify.svg)](https://pub.dartlang.org/packages/flutter_linkify)
 
 Turns text URLs into clickable inline links in text for Flutter.
 
-[Pub](https://pub.dartlang.org/packages/flutter_linkify) - [API Docs](https://pub.dartlang.org/documentation/flutter_linkify/latest/)
+[Pub](https://pub.dartlang.org/packages/flutter_linkify) - [API Docs](https://pub.dartlang.org/documentation/flutter_linkify/latest/) - [GitHub](https://github.com/Cretezy/flutter_linkify)
 
 ## Install
 
