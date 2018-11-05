@@ -25,7 +25,7 @@ class TextElement extends LinkifyElement {
 }
 
 final _linkifyRegex =
-    RegExp(r"(.*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)", caseSensitive: false);
+    RegExp(r"(.*?\s?)((?:https?):\/\/[^\s/$.?#].[^\s]*)", caseSensitive: false);
 
 /// Turns [text] into a list of [LinkifyElement]
 List<LinkifyElement> linkify(String text) {
