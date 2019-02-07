@@ -19,18 +19,22 @@ class Linkify extends StatelessWidget {
   /// Callback for tapping a link
   final LinkCallback onOpen;
 
+  final TextDirection textDirection;
+
   const Linkify({
     Key key,
     this.text,
     this.style,
     this.linkStyle,
     this.onOpen,
+    this.textDirection
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RichText(
       softWrap: true,
+      textDirection: textDirection,
       text: buildTextSpan(
         text: text,
         style: Theme.of(context).textTheme.body1.merge(style),
