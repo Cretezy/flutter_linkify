@@ -1,4 +1,4 @@
-## [1.0.3] - 2018-11-06
+## [1.0.4] - 2019-02-19
 
 * Fix bug with newlines ([#1](https://github.com/Cretezy/flutter_linkify/issues/1))
 
