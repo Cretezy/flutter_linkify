@@ -24,7 +24,7 @@ class TextElement extends LinkifyElement {
   }
 }
 
-final _linkifyRegex = RegExp(r"(.*?\s*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)",
+final _linkifyRegex = RegExp(r"(\n*?.*?\s*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)",
     caseSensitive: false);
 
 /// Turns [text] into a list of [LinkifyElement]

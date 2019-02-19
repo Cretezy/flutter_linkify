@@ -1,6 +1,6 @@
 name: flutter_linkify
 description: Turns text URLs into clickable inline links in text for Flutter.
-version: 1.0.3
+version: 1.0.4
 author: Charles Crete <charles@cretezy.com>
 homepage: https://github.com/Cretezy/flutter_linkify
 
