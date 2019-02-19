@@ -3,12 +3,13 @@ abstract class LinkifyElement {}
 /// Represents an element containing a link
 class LinkElement extends LinkifyElement {
   final String url;
+  final String text;
 
-  LinkElement(this.url);
+  LinkElement(this.url, [String text]) : this.text = text ?? url;
 
   @override
   String toString() {
-    return "LinkElement: $url";
+    return "LinkElement: $url ($text)";
   }
 }
 
@@ -24,11 +25,15 @@ class TextElement extends LinkifyElement {
   }
 }
 
-final _linkifyRegex = RegExp(r"(\n*?.*?\s*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)",
-    caseSensitive: false);
+final _linkifyRegex = RegExp(
+  r"(\n*?.*?\s*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)",
+  caseSensitive: false,
+);
 
 /// Turns [text] into a list of [LinkifyElement]
-List<LinkifyElement> linkify(String text) {
+///
+/// Use [humanize] to remove http/https from the start of the URL shown.
+List<LinkifyElement> linkify(String text, {bool humanize = false}) {
   final list = List<LinkifyElement>();
 
   if (text == null || text.isEmpty) {
@@ -46,7 +51,14 @@ List<LinkifyElement> linkify(String text) {
     }
 
     if (match.group(2).isNotEmpty) {
-      list.add(LinkElement(match.group(2)));
+      if (humanize ?? false) {
+        list.add(LinkElement(
+          match.group(2),
+          match.group(2).replaceFirst(RegExp(r"https?://"), ""),
+        ));
+      } else {
+        list.add(LinkElement(match.group(2)));
+      }
     }
 
     list.addAll(linkify(text));

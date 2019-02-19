@@ -10,7 +10,7 @@ Install by adding this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_linkify: 1.0.4
+  flutter_linkify: 1.1.0
 ```
 
 It is highly recommend that you also add a dependency on [`url_launcher`](https://pub.dartlang.org/packages/url_launcher) to open links in the browser.
@@ -43,6 +43,14 @@ Linkify(
   text: "Made by https://cretezy.com",
   style: TextStyle(color: Colors.yellow),
   linkStyle: TextStyle(color: Colors.red),
+);
+```
+
+Remove `http://` or `https://` from the start of the URL using `humanize`:
+```dart
+Linkify(
+  text: "Made by https://cretezy.com",
+  humanize: true,
 );
 ```
 

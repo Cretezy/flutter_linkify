@@ -1,3 +1,7 @@
+## [1.1.0] - 2019-02-19
+
+* Add `humanize` option to remove protocol.
+
 ## [1.0.4] - 2019-02-19
 
 * Fix bug with newlines ([#1](https://github.com/Cretezy/flutter_linkify/issues/1))

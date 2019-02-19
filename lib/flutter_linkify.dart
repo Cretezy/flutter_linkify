@@ -21,13 +21,17 @@ class Linkify extends StatelessWidget {
 
   final TextDirection textDirection;
 
+  /// Removes http/https from shown URLS
+  final bool humanize;
+
   const Linkify({
     Key key,
     this.text,
     this.style,
     this.linkStyle,
     this.onOpen,
-    this.textDirection
+    this.textDirection,
+    this.humanize = false,
   }) : super(key: key);
 
   @override
@@ -48,35 +52,48 @@ class Linkify extends StatelessWidget {
             )
             .merge(linkStyle),
         onOpen: onOpen,
+        humanize: humanize,
       ),
     );
   }
 }
 
 /// Raw TextSpan builder for more control on the RichText
-TextSpan buildTextSpan(
-    {String text, TextStyle style, TextStyle linkStyle, LinkCallback onOpen}) {
+TextSpan buildTextSpan({
+  String text,
+  TextStyle style,
+  TextStyle linkStyle,
+  LinkCallback onOpen,
+  bool humanize = false,
+}) {
   void _onOpen(String url) {
     if (onOpen != null) {
       onOpen(url);
     }
   }
 
-  final elements = linkify(text);
+  final elements = linkify(
+    text,
+    humanize: humanize,
+  );
 
   return TextSpan(
-      children: elements.map<TextSpan>((element) {
-    if (element is TextElement) {
-      return TextSpan(
-        text: element.text,
-        style: style,
-      );
-    } else if (element is LinkElement) {
-      return TextSpan(
-        text: element.url,
-        style: linkStyle,
-        recognizer: TapGestureRecognizer()..onTap = () => _onOpen(element.url),
-      );
-    }
-  }).toList());
+    children: elements.map<TextSpan>(
+      (element) {
+        if (element is TextElement) {
+          return TextSpan(
+            text: element.text,
+            style: style,
+          );
+        } else if (element is LinkElement) {
+          return TextSpan(
+            text: element.text,
+            style: linkStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => _onOpen(element.url),
+          );
+        }
+      },
+    ).toList(),
+  );
 }
