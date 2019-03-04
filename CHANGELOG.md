@@ -1,3 +1,7 @@
+## [1.1.1] - 2019-03-03
+
+* Fix `humanize` option on multi-link text (not being passed down).
+
 ## [1.1.0] - 2019-02-19
 
 * Add `humanize` option to remove protocol.

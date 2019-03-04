@@ -52,16 +52,18 @@ List<LinkifyElement> linkify(String text, {bool humanize = false}) {
 
     if (match.group(2).isNotEmpty) {
       if (humanize ?? false) {
+        print("humanizing ${match.group(2)}");
         list.add(LinkElement(
           match.group(2),
           match.group(2).replaceFirst(RegExp(r"https?://"), ""),
         ));
       } else {
+        print("not humanizing ${match.group(2)}");
         list.add(LinkElement(match.group(2)));
       }
     }
 
-    list.addAll(linkify(text));
+    list.addAll(linkify(text, humanize: humanize));
   }
 
   return list;
