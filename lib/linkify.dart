@@ -13,6 +13,19 @@ class LinkElement extends LinkifyElement {
   }
 }
 
+/// Represents an element containing an email address
+class EmailElement extends LinkifyElement {
+  final String emailAddress;
+  final String text;
+
+  EmailElement(this.emailAddress, [String text]) : this.text = text ?? emailAddress;
+
+  @override
+  String toString() {
+    return "EmailElement: $emailAddress ($text)";
+  }
+}
+
 /// Represents an element containing text
 class TextElement extends LinkifyElement {
   final String text;
@@ -31,7 +44,7 @@ final _linkifyUrlRegex = RegExp(
 );
 
 final _linkifyEmailRegex = RegExp(
-  r"(\n*?.*?\s*?)((mailto:)[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})",
+  r"(\n*?.*?\s*?)((mailto:)?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})",
   caseSensitive: false
 );
 
@@ -58,13 +71,11 @@ List<LinkifyElement> linkify(String text, {bool humanize = false}) {
 
     if (urlMatch.group(2).isNotEmpty) {
       if (humanize ?? false) {
-        print("humanizing url ${urlMatch.group(2)}");
         list.add(LinkElement(
           urlMatch.group(2),
           urlMatch.group(2).replaceFirst(RegExp(r"https?://"), ""),
         ));
       } else {
-        print("not humanizing url ${urlMatch.group(2)}");
         list.add(LinkElement(urlMatch.group(2)));
       }
     }
@@ -79,10 +90,8 @@ List<LinkifyElement> linkify(String text, {bool humanize = false}) {
 
     if (emailMatch.group(2).isNotEmpty) {
       // Always humanize emails
-      print("humanizing email ${emailMatch.group(2)}");
-      list.add(LinkElement(
-        emailMatch.group(2),
-        emailMatch.group(2).replaceFirst(RegExp(r"mailto:"), ""),
+      list.add(EmailElement(
+        emailMatch.group(2).replaceFirst(RegExp(r"mailto:"), "")
       ));
     }
 
