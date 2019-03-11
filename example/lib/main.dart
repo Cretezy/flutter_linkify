@@ -22,7 +22,7 @@ class LinkifyExample extends StatelessWidget {
                 throw 'Could not launch $url';
               }
             },
-            text: "Made by https://cretezy.com",
+            text: "Made by https://cretezy.com\n\nMail: mailto:charles@cretezy.com",
           ),
         ),
       ),
