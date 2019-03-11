@@ -84,7 +84,7 @@ TextSpan buildTextSpan({
 
   void _onEmailOpen(String emailAddress) {
     if (onEmailOpen != null) {
-      onEmailOpen(emailAddress);  // TODO: discussable; add "mailto:" here for immediate use with url_launcher or except developers to do it themselves
+      onEmailOpen(emailAddress);  // TODO: discussable; add "mailto:" here for immediate use with url_launcher or expect developers to do it themselves
     }
   }
 
@@ -110,10 +110,10 @@ TextSpan buildTextSpan({
           );
         } else if (element is EmailElement) {
           return TextSpan(
-              text: element.text,
-              style: linkStyle,
-              recognizer: TapGestureRecognizer()
-            ..onTap = () => _onEmailOpen(element.emailAddress),
+            text: element.text,
+            style: linkStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => _onEmailOpen(element.emailAddress),
           );
         }
       },
