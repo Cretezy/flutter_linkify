@@ -48,13 +48,14 @@ class TextElement extends LinkifyElement {
 }
 
 final _linkifyUrlRegex = RegExp(
-  r"(\n*?.*?\s*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)",
+  r"^((?:.|\n)*?)((?:https?):\/\/[^\s/$.?#].[^\s]*)",
   caseSensitive: false,
 );
 
 final _linkifyEmailRegex = RegExp(
-    r"(\n*?.*?\s*?)((mailto:)?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})",
-    caseSensitive: false);
+  r"^((?:.|\n)*?)((mailto:)?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})",
+  caseSensitive: false,
+);
 
 /// Turns [text] into a list of [LinkifyElement]
 ///
@@ -93,7 +94,7 @@ List<LinkifyElement> linkify(
     list.add(TextElement(text));
   } else {
     if (urlMatch != null) {
-      text = text.replaceFirst(_linkifyUrlRegex, "");
+      text = text.replaceFirst(urlMatch.group(0), "");
 
       if (urlMatch.group(1).isNotEmpty) {
         list.add(TextElement(urlMatch.group(1)));
@@ -110,7 +111,7 @@ List<LinkifyElement> linkify(
         }
       }
     } else if (emailMatch != null) {
-      text = text.replaceFirst(_linkifyEmailRegex, "");
+      text = text.replaceFirst(emailMatch.group(0), "");
 
       if (emailMatch.group(1).isNotEmpty) {
         list.add(TextElement(emailMatch.group(1)));

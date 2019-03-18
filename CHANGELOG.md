@@ -1,10 +1,11 @@
 ## [2.0.0] - 2019-03-17
 
 - Add email address linking (thanks [PieterAelse](https://github.com/PieterAelse)! [#8](https://github.com/Cretezy/flutter_linkify/pull/8)).
-- Change API to pass a `LinkableElement` to the `onOpen` callback:
+- Breaking: Change API to pass a `LinkableElement` to the `onOpen` callback:
   - Accessing the URL can be done by using `link.url`.
   - You can check using `is` if it is a `LinkElement` or `EmailElement` for custom handling.
 - Added `linkTypes` option to enable/disable parsing URLs/emails.
+- More line break fixes (should be the last! [#9](https://github.com/Cretezy/flutter_linkify/issues/9))
 
 ## [1.1.1] - 2019-03-03
 
