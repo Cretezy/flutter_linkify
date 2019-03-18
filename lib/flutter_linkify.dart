@@ -2,16 +2,26 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/linkify.dart';
 
-/// Callback with URL to open
-typedef LinkCallback(String url);
+export 'package:flutter_linkify/linkify.dart'
+    show
+        LinkifyElement,
+        LinkableElement,
+        LinkElement,
+        EmailElement,
+        TextElement,
+        LinkType;
 
-/// Callback with Email address
-typedef EmailCallback(String emailAddress);
+/// Callback clicked link
+typedef LinkCallback(LinkableElement link);
 
 /// Turns URLs into links
 class Linkify extends StatelessWidget {
   /// Text to be linkified
   final String text;
+
+  /// Enables some types of links (URL, email).
+  /// Will default to all (if `null`).
+  final List<LinkType> linkTypes;
 
   /// Style for non-link text
   final TextStyle style;
@@ -20,15 +30,13 @@ class Linkify extends StatelessWidget {
   final TextStyle linkStyle;
 
   /// Callback for tapping a link
-  final LinkCallback onLinkOpen;
-
-  /// Callback for tapping an email
-  final EmailCallback onEmailOpen;
+  final LinkCallback onOpen;
 
   /// Text direction of the text
   final TextDirection textDirection;
 
-  /// Removes http/https from shown URLS
+  /// Removes http/https from shown URLS.
+  /// Will default to `false` (if `null`)
   final bool humanize;
 
   const Linkify({
@@ -36,10 +44,10 @@ class Linkify extends StatelessWidget {
     this.text,
     this.style,
     this.linkStyle,
-    this.onLinkOpen,
-    this.onEmailOpen,
     this.textDirection,
-    this.humanize = false,
+    this.humanize,
+    this.onOpen,
+    this.linkTypes,
   }) : super(key: key);
 
   @override
@@ -59,9 +67,9 @@ class Linkify extends StatelessWidget {
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
-        onLinkOpen: onLinkOpen,
-        onEmailOpen: onEmailOpen,
+        onOpen: onOpen,
         humanize: humanize,
+        linkTypes: linkTypes,
       ),
     );
   }
@@ -72,48 +80,35 @@ TextSpan buildTextSpan({
   String text,
   TextStyle style,
   TextStyle linkStyle,
-  LinkCallback onLinkOpen,
-  EmailCallback onEmailOpen,
-  bool humanize = false,
+  LinkCallback onOpen,
+  bool humanize,
+  List<LinkType> linkTypes,
 }) {
-  void _onLinkOpen(String url) {
-    if (onLinkOpen != null) {
-      onLinkOpen(url);
-    }
-  }
-
-  void _onEmailOpen(String emailAddress) {
-    if (onEmailOpen != null) {
-      onEmailOpen(emailAddress);  // TODO: discussable; add "mailto:" here for immediate use with url_launcher or expect developers to do it themselves
+  void _onOpen(LinkableElement element) {
+    if (onOpen != null) {
+      onOpen(element);
     }
   }
 
   final elements = linkify(
     text,
     humanize: humanize,
+    linkTypes: linkTypes,
   );
 
   return TextSpan(
     children: elements.map<TextSpan>(
       (element) {
-        if (element is TextElement) {
+        if (element is LinkableElement) {
+          return TextSpan(
+            text: element.text,
+            style: linkStyle,
+            recognizer: TapGestureRecognizer()..onTap = () => _onOpen(element),
+          );
+        } else {
           return TextSpan(
             text: element.text,
             style: style,
-          );
-        } else if (element is LinkElement) {
-          return TextSpan(
-            text: element.text,
-            style: linkStyle,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => _onLinkOpen(element.url),
-          );
-        } else if (element is EmailElement) {
-          return TextSpan(
-            text: element.text,
-            style: linkStyle,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => _onEmailOpen(element.emailAddress),
           );
         }
       },

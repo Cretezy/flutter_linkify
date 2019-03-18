@@ -17,13 +17,7 @@ class LinkifyExample extends StatelessWidget {
         ),
         body: Center(
           child: Linkify(
-            onLinkOpen: (url) {
-              _launchLink(url);
-            },
-            onEmailOpen: (emailAddress) {
-              final emailAddressLink = "mailto:$emailAddress";
-              _launchLink(emailAddressLink);
-            },
+            onOpen: _onOpen,
             text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
           ),
         ),
@@ -31,9 +25,9 @@ class LinkifyExample extends StatelessWidget {
     );
   }
 
-  Future _launchLink(String link) async {
-    if (await canLaunch(link)) {
-      await launch(link);
+  Future<void> _onOpen(LinkableElement link) async {
+    if (await canLaunch(link.url)) {
+      await launch(link.url);
     } else {
       throw 'Could not launch $link';
     }
