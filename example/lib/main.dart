@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'dart:async';
+
 import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(new LinkifyExample());
@@ -15,17 +17,25 @@ class LinkifyExample extends StatelessWidget {
         ),
         body: Center(
           child: Linkify(
-            onOpen: (url) async {
-              if (await canLaunch(url)) {
-                await launch(url);
-              } else {
-                throw 'Could not launch $url';
-              }
+            onLinkOpen: (url) {
+              _launchLink(url);
             },
-            text: "Made by https://cretezy.com",
+            onEmailOpen: (emailAddress) {
+              final emailAddressLink = "mailto:$emailAddress";
+              _launchLink(emailAddressLink);
+            },
+            text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
           ),
         ),
       ),
     );
+  }
+
+  Future _launchLink(String link) async {
+    if (await canLaunch(link)) {
+      await launch(link);
+    } else {
+      throw 'Could not launch $link';
+    }
   }
 }

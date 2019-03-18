@@ -5,6 +5,9 @@ import 'package:flutter_linkify/linkify.dart';
 /// Callback with URL to open
 typedef LinkCallback(String url);
 
+/// Callback with Email address
+typedef EmailCallback(String emailAddress);
+
 /// Turns URLs into links
 class Linkify extends StatelessWidget {
   /// Text to be linkified
@@ -17,8 +20,12 @@ class Linkify extends StatelessWidget {
   final TextStyle linkStyle;
 
   /// Callback for tapping a link
-  final LinkCallback onOpen;
+  final LinkCallback onLinkOpen;
 
+  /// Callback for tapping an email
+  final EmailCallback onEmailOpen;
+
+  /// Text direction of the text
   final TextDirection textDirection;
 
   /// Removes http/https from shown URLS
@@ -29,7 +36,8 @@ class Linkify extends StatelessWidget {
     this.text,
     this.style,
     this.linkStyle,
-    this.onOpen,
+    this.onLinkOpen,
+    this.onEmailOpen,
     this.textDirection,
     this.humanize = false,
   }) : super(key: key);
@@ -51,7 +59,8 @@ class Linkify extends StatelessWidget {
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
-        onOpen: onOpen,
+        onLinkOpen: onLinkOpen,
+        onEmailOpen: onEmailOpen,
         humanize: humanize,
       ),
     );
@@ -63,12 +72,19 @@ TextSpan buildTextSpan({
   String text,
   TextStyle style,
   TextStyle linkStyle,
-  LinkCallback onOpen,
+  LinkCallback onLinkOpen,
+  EmailCallback onEmailOpen,
   bool humanize = false,
 }) {
-  void _onOpen(String url) {
-    if (onOpen != null) {
-      onOpen(url);
+  void _onLinkOpen(String url) {
+    if (onLinkOpen != null) {
+      onLinkOpen(url);
+    }
+  }
+
+  void _onEmailOpen(String emailAddress) {
+    if (onEmailOpen != null) {
+      onEmailOpen(emailAddress);  // TODO: discussable; add "mailto:" here for immediate use with url_launcher or expect developers to do it themselves
     }
   }
 
@@ -90,7 +106,14 @@ TextSpan buildTextSpan({
             text: element.text,
             style: linkStyle,
             recognizer: TapGestureRecognizer()
-              ..onTap = () => _onOpen(element.url),
+              ..onTap = () => _onLinkOpen(element.url),
+          );
+        } else if (element is EmailElement) {
+          return TextSpan(
+            text: element.text,
+            style: linkStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => _onEmailOpen(element.emailAddress),
           );
         }
       },
