@@ -13,6 +13,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  linkify:
+    dependency: "direct main"
+    description:
+      name: linkify
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   meta:
     dependency: transitive
     description:
@@ -20,6 +27,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
+  pedantic:
+    dependency: "direct dev"
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -40,4 +54,4 @@ packages:
     source: hosted
     version: "2.0.8"
 sdks:
-  dart: ">=2.0.0 <3.0.0"
+  dart: ">=2.1.1-dev.0.0 <3.0.0"

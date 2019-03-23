@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_linkify/linkify.dart';
+import 'package:linkify/linkify.dart';
 
-export 'package:flutter_linkify/linkify.dart'
+export 'package:linkify/linkify.dart'
     show
         LinkifyElement,
         LinkableElement,
@@ -23,41 +23,58 @@ class Linkify extends StatelessWidget {
   /// Will default to all (if `null`).
   final List<LinkType> linkTypes;
 
+  /// Callback for tapping a link
+  final LinkCallback onOpen;
+
+  /// Removes http/https from shown URLS.
+  /// Will default to `false` (if `null`)
+  final bool humanize;
+
+  // TextSpan
+
   /// Style for non-link text
   final TextStyle style;
 
   /// Style of link text
   final TextStyle linkStyle;
 
-  /// Callback for tapping a link
-  final LinkCallback onOpen;
+  // RichText
+
+  /// How the text should be aligned horizontally.
+  final TextAlign textAlign;
 
   /// Text direction of the text
   final TextDirection textDirection;
 
-  /// Removes http/https from shown URLS.
-  /// Will default to `false` (if `null`)
-  final bool humanize;
-
   const Linkify({
     Key key,
     this.text,
+    this.linkTypes,
+    this.onOpen,
+    this.humanize,
+    // TextSpawn
     this.style,
     this.linkStyle,
+    // RichText
+    this.textAlign = TextAlign.start,
     this.textDirection,
-    this.humanize,
-    this.onOpen,
-    this.linkTypes,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final elements = linkify(
+      text,
+      humanize: humanize,
+      linkTypes: linkTypes,
+    );
+
     return RichText(
-      softWrap: true,
+      textAlign: textAlign,
       textDirection: textDirection,
       text: buildTextSpan(
-        text: text,
+        elements,
         style: Theme.of(context).textTheme.body1.merge(style),
+        onOpen: onOpen,
         linkStyle: Theme.of(context)
             .textTheme
             .body1
@@ -67,35 +84,18 @@ class Linkify extends StatelessWidget {
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
-        onOpen: onOpen,
-        humanize: humanize,
-        linkTypes: linkTypes,
       ),
     );
   }
 }
 
 /// Raw TextSpan builder for more control on the RichText
-TextSpan buildTextSpan({
-  String text,
+TextSpan buildTextSpan(
+  List<LinkifyElement> elements, {
   TextStyle style,
   TextStyle linkStyle,
   LinkCallback onOpen,
-  bool humanize,
-  List<LinkType> linkTypes,
 }) {
-  void _onOpen(LinkableElement element) {
-    if (onOpen != null) {
-      onOpen(element);
-    }
-  }
-
-  final elements = linkify(
-    text,
-    humanize: humanize,
-    linkTypes: linkTypes,
-  );
-
   return TextSpan(
     children: elements.map<TextSpan>(
       (element) {
@@ -103,7 +103,9 @@ TextSpan buildTextSpan({
           return TextSpan(
             text: element.text,
             style: linkStyle,
-            recognizer: TapGestureRecognizer()..onTap = () => _onOpen(element),
+            recognizer: onOpen != null
+                ? (TapGestureRecognizer()..onTap = () => onOpen(element))
+                : null,
           );
         } else {
           return TextSpan(

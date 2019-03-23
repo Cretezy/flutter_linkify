@@ -1,3 +1,9 @@
+## [2.1.0] - 2019-03-23
+
+- Split to [`linkify`](https://github.com/Cretezy/linkify) package.
+  - This *might* break if you were using the internal `linkify` method.
+- Add text alignment ([#11](https://github.com/Cretezy/flutter_linkify/issues/11)).
+
 ## [2.0.0] - 2019-03-17
 
 - Add email address linking (thanks [PieterAelse](https://github.com/PieterAelse)! [#8](https://github.com/Cretezy/flutter_linkify/pull/8)).
@@ -5,7 +11,7 @@
   - Accessing the URL can be done by using `link.url`.
   - You can check using `is` if it is a `LinkElement` or `EmailElement` for custom handling.
 - Added `linkTypes` option to enable/disable parsing URLs/emails.
-- More line break fixes (should be the last! [#9](https://github.com/Cretezy/flutter_linkify/issues/9))
+- More line break fixes (should be the last! [#9](https://github.com/Cretezy/flutter_linkify/issues/9)).
 
 ## [1.1.1] - 2019-03-03
 

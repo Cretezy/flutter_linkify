@@ -10,7 +10,7 @@ Install by adding this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_linkify: 2.0.0
+  flutter_linkify: ^2.1.0
 ```
 
 It is highly recommend that you also add a dependency on [`url_launcher`](https://pub.dartlang.org/packages/url_launcher) to open links in the browser/OS.
