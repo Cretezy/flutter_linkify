@@ -46,6 +46,9 @@ class Linkify extends StatelessWidget {
   /// Text direction of the text
   final TextDirection textDirection;
 
+  final int maxLines;
+  final TextOverflow overflow;
+
   const Linkify({
     Key key,
     this.text,
@@ -58,6 +61,8 @@ class Linkify extends StatelessWidget {
     // RichText
     this.textAlign = TextAlign.start,
     this.textDirection,
+    this.maxLines,
+    this.overflow = TextOverflow.ellipsis,
   }) : super(key: key);
 
   @override
@@ -71,6 +76,8 @@ class Linkify extends StatelessWidget {
     return RichText(
       textAlign: textAlign,
       textDirection: textDirection,
+      maxLines: maxLines,
+      overflow: overflow,
       text: buildTextSpan(
         elements,
         style: Theme.of(context).textTheme.body1.merge(style),
