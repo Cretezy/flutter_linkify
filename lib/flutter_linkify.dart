@@ -49,6 +49,9 @@ class Linkify extends StatelessWidget {
   final int maxLines;
   final TextOverflow overflow;
 
+  /// Text scale factor
+  final double textScaleFactor;
+
   const Linkify({
     Key key,
     this.text,
@@ -63,6 +66,7 @@ class Linkify extends StatelessWidget {
     this.textDirection,
     this.maxLines,
     this.overflow = TextOverflow.ellipsis,
+    this.textScaleFactor,
   }) : super(key: key);
 
   @override
@@ -78,6 +82,8 @@ class Linkify extends StatelessWidget {
       textDirection: textDirection,
       maxLines: maxLines,
       overflow: overflow,
+      textScaleFactor:
+          textScaleFactor ?? MediaQuery.of(context).textScaleFactor,
       text: buildTextSpan(
         elements,
         style: Theme.of(context).textTheme.body1.merge(style),
