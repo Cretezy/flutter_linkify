@@ -5,11 +5,14 @@ import 'package:linkify/linkify.dart';
 export 'package:linkify/linkify.dart'
     show
         LinkifyElement,
+        LinkifyOptions,
         LinkableElement,
-        LinkElement,
-        EmailElement,
         TextElement,
-        LinkType;
+        Linkifier,
+        UrlElement,
+        UrlLinkifier,
+        EmailElement,
+        EmailLinkifier;
 
 /// Callback clicked link
 typedef LinkCallback(LinkableElement link);
@@ -19,16 +22,14 @@ class Linkify extends StatelessWidget {
   /// Text to be linkified
   final String text;
 
-  /// Enables some types of links (URL, email).
-  /// Will default to all (if `null`).
-  final List<LinkType> linkTypes;
+  /// Linkifiers to be used for linkify
+  final List<Linkifier> linkifiers;
 
   /// Callback for tapping a link
   final LinkCallback onOpen;
 
-  /// Removes http/https from shown URLS.
-  /// Will default to `false` (if `null`)
-  final bool humanize;
+  /// linkify's options.
+  final LinkifyOptions options;
 
   // TextSpan
 
@@ -55,9 +56,9 @@ class Linkify extends StatelessWidget {
   const Linkify({
     Key key,
     this.text,
-    this.linkTypes,
+    this.linkifiers = defaultLinkifiers,
     this.onOpen,
-    this.humanize,
+    this.options,
     // TextSpawn
     this.style,
     this.linkStyle,
@@ -73,8 +74,8 @@ class Linkify extends StatelessWidget {
   Widget build(BuildContext context) {
     final elements = linkify(
       text,
-      humanize: humanize,
-      linkTypes: linkTypes,
+      options: options,
+      linkifiers: linkifiers,
     );
 
     return RichText(

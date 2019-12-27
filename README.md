@@ -10,7 +10,7 @@ Install by adding this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_linkify: ^2.1.0
+  flutter_linkify: ^3.0.0
 ```
 
 It is highly recommend that you also add a dependency on [`url_launcher`](https://pub.dartlang.org/packages/url_launcher) to open links in the browser/OS.
@@ -50,23 +50,23 @@ Linkify(
 );
 ```
 
-### Humanizing
+### Linkify Options
 
-Remove `http://` or `https://` from the start of the URL using `humanize`:
+By default, humanization (removal of `http://` or `https://` from the start of the URL) is enabled. You may disable it by passing `options`:
 
 ```dart
 Linkify(
   text: "Made by https://cretezy.com",
-  humanize: true,
+  options: LinkifyOptions(humanize: false),
 );
 ```
 
 ### Advance
 
 In the `onOpen` callback, a `LinkableElement` is passed in.
-You can check if it is a `LinkElement` (URL) or `EmailElement` using `is` for custom handling.
+You can check if it is a `UrlElement` or `EmailElement` using `is` for custom handling.
 
-You can enable parsing of only some link types using the `linkTypes` option. All are enabled by default.
+You can enable parsing of only some link types using the `linkifiers` option. URL and email are enabled by default.
 
 Full example can be found at [`example/lib/main.dart`](example/lib/main.dart).
 

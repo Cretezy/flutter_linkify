@@ -1,3 +1,9 @@
+## [3.0.0] - 2019-12-27
+
+- Update to `linkify` v2.0.0.
+- Change `humanize` to `options` for `linkify`
+- Change `linkTypes` to `linkifiers` for `linkify`
+
 ## [2.1.0] - 2019-03-23
 
 - Split to [`linkify`](https://github.com/Cretezy/linkify) package.
