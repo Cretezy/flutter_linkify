@@ -63,10 +63,10 @@ class Linkify extends StatelessWidget {
     this.style,
     this.linkStyle,
     // RichText
-    this.textAlign = TextAlign.start,
+    this.textAlign,
     this.textDirection,
     this.maxLines,
-    this.overflow = TextOverflow.ellipsis,
+    this.overflow,
     this.textScaleFactor,
   }) : super(key: key);
 
