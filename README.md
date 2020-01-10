@@ -10,7 +10,7 @@ Install by adding this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_linkify: ^3.0.0
+  flutter_linkify: ^3.1.0
 ```
 
 It is highly recommend that you also add a dependency on [`url_launcher`](https://pub.dartlang.org/packages/url_launcher) to open links in the browser/OS.
@@ -50,6 +50,8 @@ Linkify(
 );
 ```
 
+All `RichText` options are available for use.
+
 ### Linkify Options
 
 By default, humanization (removal of `http://` or `https://` from the start of the URL) is enabled. You may disable it by passing `options`:
@@ -58,6 +60,16 @@ By default, humanization (removal of `http://` or `https://` from the start of t
 Linkify(
   text: "Made by https://cretezy.com",
   options: LinkifyOptions(humanize: false),
+);
+```
+
+### Selectable Text
+
+Use the `SelectableLinkify` widget to create selectable text. All `SelectableText` options are available for use.
+
+```dart
+SelectableLinkify(
+  text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
 );
 ```
 

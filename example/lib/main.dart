@@ -10,16 +10,28 @@ class LinkifyExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'flutter_linkify example',
       home: Scaffold(
         appBar: AppBar(
           title: Text('flutter_linkify example'),
         ),
-        body: Center(
-          child: Linkify(
-            onOpen: _onOpen,
-            text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Center(
+              child: Linkify(
+                onOpen: _onOpen,
+                text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+              ),
+            ),
+            Center(
+              child: SelectableLinkify(
+                onOpen: _onOpen,
+                text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+              ),
+            ),
+          ],
         ),
       ),
     );
