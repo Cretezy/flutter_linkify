@@ -1,3 +1,7 @@
+## [3.1.2] - 2020-04-24
+
+- Forgot to bump README version
+
 ## [3.1.1] - 2020-04-24
 
 - Update to `linkify` v2.1.0
