@@ -1,3 +1,7 @@
+## [3.1.1] - 2020-04-24
+
+- Update to `linkify` v2.1.0
+
 ## [3.1.0] - 2020-01-10
 
 - Add `SelectableLinkify`, for selectable linkified text
@@ -5,7 +9,7 @@
 
 ## [3.0.0] - 2019-12-27
 
-- Update to `linkify` v2.0.0.
+- Update to `linkify` v2.0.0
 - Change `humanize` to `options` for `linkify`
 - Change `linkTypes` to `linkifiers` for `linkify`
 
