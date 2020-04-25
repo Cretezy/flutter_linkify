@@ -65,6 +65,8 @@ Linkify(
 
 ### Selectable Text
 
+> **Note**: This feature is currently broken due to a Flutter bug (https://github.com/flutter/flutter/issues/43494).
+
 Use the `SelectableLinkify` widget to create selectable text. All `SelectableText` options are available for use.
 
 ```dart
