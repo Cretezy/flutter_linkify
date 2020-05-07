@@ -110,11 +110,11 @@ class Linkify extends StatelessWidget {
       textWidthBasis: textWidthBasis,
       text: buildTextSpan(
         elements,
-        style: Theme.of(context).textTheme.body1.merge(style),
+        style: Theme.of(context).textTheme.bodyText2.merge(style),
         onOpen: onOpen,
         linkStyle: Theme.of(context)
             .textTheme
-            .body1
+            .bodyText2
             .merge(style)
             .copyWith(
               color: Colors.blueAccent,
@@ -240,11 +240,11 @@ class SelectableLinkify extends StatelessWidget {
     return SelectableText.rich(
       buildTextSpan(
         elements,
-        style: Theme.of(context).textTheme.body1.merge(style),
+        style: Theme.of(context).textTheme.bodyText2.merge(style),
         onOpen: onOpen,
         linkStyle: Theme.of(context)
             .textTheme
-            .body1
+            .bodyText2
             .merge(style)
             .copyWith(
               color: Colors.blueAccent,

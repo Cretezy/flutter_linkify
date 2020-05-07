@@ -1,3 +1,7 @@
+## [3.1.3] - 2020-05-07
+
+- Update `body1` to `bodyText2`
+
 ## [3.1.2] - 2020-04-24
 
 - Forgot to bump README version
