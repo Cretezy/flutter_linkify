@@ -17,7 +17,7 @@ export 'package:linkify/linkify.dart'
 /// Callback clicked link
 typedef LinkCallback(LinkableElement link);
 
-/// Function for dynamic a links display text
+/// Function for dynamic display text of link
 typedef String DisplayTextFn(String s);
 
 /// Turns URLs into links
