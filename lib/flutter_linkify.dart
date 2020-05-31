@@ -72,7 +72,7 @@ class Linkify extends StatelessWidget {
   /// Defines how to measure the width of the rendered text.
   final TextWidthBasis textWidthBasis;
 
-  /// Function to allow dynamic display names
+  /// Function for dynamic display text of link
   final DisplayTextFn displayText;
 
   const Linkify({
@@ -208,7 +208,7 @@ class SelectableLinkify extends StatelessWidget {
 
   final ScrollPhysics scrollPhysics;
 
-  /// Function to allow dynamic display names
+  /// Function for dynamic display text of link
   final DisplayTextFn displayText;
 
   const SelectableLinkify({
