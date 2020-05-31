@@ -17,6 +17,9 @@ export 'package:linkify/linkify.dart'
 /// Callback clicked link
 typedef LinkCallback(LinkableElement link);
 
+/// Function for dynamic a links display text
+typedef String DisplayTextFn(String s);
+
 /// Turns URLs into links
 class Linkify extends StatelessWidget {
   /// Text to be linkified
@@ -315,5 +318,3 @@ TextSpan buildTextSpan(
     ).toList(),
   );
 }
-
-typedef String DisplayTextFn(String s);
