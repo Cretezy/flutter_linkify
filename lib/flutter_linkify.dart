@@ -68,8 +68,10 @@ class Linkify extends StatelessWidget {
 
   /// Defines how to measure the width of the rendered text.
   final TextWidthBasis textWidthBasis;
-  // Replaces host name with value in map
-  final Map<String, String> hostReplacementText;
+
+  /// Function to allow dynamic display names
+  final DisplayTextFn displayText;
+
   const Linkify({
     Key key,
     @required this.text,
@@ -89,7 +91,7 @@ class Linkify extends StatelessWidget {
     this.strutStyle,
     this.locale,
     this.textWidthBasis = TextWidthBasis.parent,
-    this.hostReplacementText,
+    this.displayText,
   }) : super(key: key);
 
   @override
@@ -123,7 +125,7 @@ class Linkify extends StatelessWidget {
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
-        hostReplacementText: hostReplacementText,
+        displayText: displayText,
       ),
     );
   }
@@ -202,8 +204,9 @@ class SelectableLinkify extends StatelessWidget {
   final GestureTapCallback onTap;
 
   final ScrollPhysics scrollPhysics;
-  // Replaces host name with value in map
-  final Map<String, String> hostReplacementText;
+
+  /// Function to allow dynamic display names
+  final DisplayTextFn displayText;
 
   const SelectableLinkify({
     Key key,
@@ -232,7 +235,7 @@ class SelectableLinkify extends StatelessWidget {
     this.onTap,
     this.scrollPhysics,
     this.textWidthBasis,
-    this.hostReplacementText,
+    this.displayText,
   }) : super(key: key);
 
   @override
@@ -248,7 +251,7 @@ class SelectableLinkify extends StatelessWidget {
         elements,
         style: Theme.of(context).textTheme.bodyText2.merge(style),
         onOpen: onOpen,
-        hostReplacementText: hostReplacementText,
+        displayText: displayText,
         linkStyle: Theme.of(context)
             .textTheme
             .bodyText2
@@ -285,27 +288,18 @@ TextSpan buildTextSpan(
   TextStyle style,
   TextStyle linkStyle,
   LinkCallback onOpen,
-  Map<String, String> hostReplacementText,
+  DisplayTextFn displayText,
 }) {
   return TextSpan(
     children: elements.map<TextSpan>(
       (element) {
         if (element is LinkableElement) {
-          if (hostReplacementText != null && hostReplacementText.isNotEmpty) {
-            for (var host in hostReplacementText.keys) {
-              if (element.text.contains(host)) {
-                return TextSpan(
-                  text: hostReplacementText[host],
-                  style: linkStyle,
-                  recognizer: onOpen != null
-                      ? (TapGestureRecognizer()..onTap = () => onOpen(element))
-                      : null,
-                );
-              }
-            }
+          var text = element.text;
+          if(displayText != null) {
+            text = displayText(element.text);
           }
           return TextSpan(
-            text: element.text,
+            text: text,
             style: linkStyle,
             recognizer: onOpen != null
                 ? (TapGestureRecognizer()..onTap = () => onOpen(element))
@@ -321,3 +315,5 @@ TextSpan buildTextSpan(
     ).toList(),
   );
 }
+
+typedef String DisplayTextFn(String s);
