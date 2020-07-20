@@ -98,17 +98,8 @@ class Linkify extends StatelessWidget {
       linkifiers: linkifiers,
     );
 
-    return RichText(
-      textAlign: textAlign,
-      textDirection: textDirection,
-      maxLines: maxLines,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      softWrap: softWrap,
-      strutStyle: strutStyle,
-      locale: locale,
-      textWidthBasis: textWidthBasis,
-      text: buildTextSpan(
+    return Text.rich(
+      buildTextSpan(
         elements,
         style: Theme.of(context).textTheme.bodyText2.merge(style),
         onOpen: onOpen,
@@ -122,6 +113,15 @@ class Linkify extends StatelessWidget {
             )
             .merge(linkStyle),
       ),
+      textAlign: textAlign,
+      textDirection: textDirection,
+      maxLines: maxLines,
+      overflow: overflow,
+      textScaleFactor: textScaleFactor,
+      softWrap: softWrap,
+      strutStyle: strutStyle,
+      locale: locale,
+      textWidthBasis: textWidthBasis,
     );
   }
 }
