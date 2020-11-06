@@ -5,6 +5,7 @@ homepage: https://github.com/Cretezy/flutter_linkify
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
+  flutter: ">=1.13.8"
 
 dependencies:
   flutter:

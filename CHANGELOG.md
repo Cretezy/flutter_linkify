@@ -1,3 +1,8 @@
+## Unreleased
+
+- Change from `RichText` to `Text.rich` ([#53](https://github.com/Cretezy/flutter_linkify/pull/53), thanks [@Sorunome](https://github.com/Sorunome)!)
+- Added minimum Flutter version of 1.13.8 ([#44](https://github.com/Cretezy/flutter_linkify/issues/44), thanks [@jamesderlin](https://github.com/jamesderlin)!)
+
 ## [3.1.3] - 2020-05-07
 
 - Update `body1` to `bodyText2`
