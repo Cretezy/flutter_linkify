@@ -1,3 +1,7 @@
+## [4.0.1] - 2020-11-05
+
+- Release of 4.0.0, forgot to bump version in README
+
 ## [4.0.0] - 2020-11-05
 
 - Change from `RichText` to `Text.rich` ([#53](https://github.com/Cretezy/flutter_linkify/pull/53), thanks [@Sorunome](https://github.com/Sorunome)!)
