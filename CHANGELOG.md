@@ -1,7 +1,14 @@
-## Unreleased
+## [4.0.0] - 2020-11-05
 
 - Change from `RichText` to `Text.rich` ([#53](https://github.com/Cretezy/flutter_linkify/pull/53), thanks [@Sorunome](https://github.com/Sorunome)!)
 - Added minimum Flutter version of 1.13.8 ([#44](https://github.com/Cretezy/flutter_linkify/issues/44), thanks [@jamesderlin](https://github.com/jamesderlin)!)
+
+**Major version has been bumped**:
+- `linkify` (the underlying parsing library) has been upgrade to v3
+  - Expand parsing to `www.` URLs ([#21](https://github.com/Cretezy/linkify/pull/21), thanks [@SpencerLindemuth](https://github.com/SpencerLindemuth)!)
+  - Add `\r` parsing, requires Dart >=2.4 ([#26](https://github.com/Cretezy/linkify/pull/26), thanks [@hpoul](https://github.com/hpoul)!)
+  - Update loose URL regex to make it more reliable (thanks for [the suggestion](https://github.com/Cretezy/linkify/issues/19#issuecomment-640587130) [@olestole](https://github.com/olestole)!)
+- Minimum version of Flutter has been upgrade
 
 ## [3.1.3] - 2020-05-07
 

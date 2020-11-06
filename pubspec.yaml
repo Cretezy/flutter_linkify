@@ -1,6 +1,6 @@
 name: flutter_linkify
 description: Turns text URLs and emails into clickable inline links in text for Flutter.
-version: 3.1.3
+version: 4.0.0
 homepage: https://github.com/Cretezy/flutter_linkify
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  linkify: ^2.1.0
+  linkify: ^3.0.0
 
 dev_dependencies:
   pedantic: ^1.0.0
