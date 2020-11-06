@@ -1,3 +1,7 @@
+## [4.0.2] - 2020-11-05
+
+- Added unit tests
+
 ## [4.0.1] - 2020-11-05
 
 - Release of 4.0.0, forgot to bump version in README
