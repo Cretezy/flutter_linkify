@@ -283,13 +283,13 @@ class LinkableSpan extends WidgetSpan {
     @required MouseCursor mouseCursor,
     @required InlineSpan inlineSpan,
   }) : super(
-    child: MouseRegion(
-      cursor: mouseCursor,
-      child: Text.rich(
-        inlineSpan,
-      ),
-    ),
-  );
+          child: MouseRegion(
+            cursor: mouseCursor,
+            child: Text.rich(
+              inlineSpan,
+            ),
+          ),
+        );
 }
 
 /// Raw TextSpan builder for more control on the RichText
@@ -301,7 +301,7 @@ TextSpan buildTextSpan(
 }) {
   return TextSpan(
     children: elements.map<WidgetSpan>(
-          (element) {
+      (element) {
         if (element is LinkableElement) {
           return LinkableSpan(
             mouseCursor: SystemMouseCursors.click,
@@ -309,19 +309,16 @@ TextSpan buildTextSpan(
               text: element.text,
               style: linkStyle,
               recognizer: onOpen != null
-                  ? (TapGestureRecognizer()
-                ..onTap = () => onOpen(element))
+                  ? (TapGestureRecognizer()..onTap = () => onOpen(element))
                   : null,
             ),
           );
         } else {
           return WidgetSpan(
-            child: Text.rich(
-                TextSpan(
-                  text: element.text,
-                  style: style,
-                )
-            ),
+            child: Text.rich(TextSpan(
+              text: element.text,
+              style: style,
+            )),
           );
         }
       },

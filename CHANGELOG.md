@@ -1,3 +1,8 @@
+## [4.1.0] - 2020-02-26
+
+- Make mouse hover a pointer ([#70](https://github.com/Cretezy/flutter_linkify/pull/70), thanks [gsvano](https://github.com/gsvano)!)
+- Expose `minLines` ([#74](https://github.com/Cretezy/flutter_linkify/pull/74), thanks [Chralu](https://github.com/Chralu)!)
+
 ## [4.0.2] - 2020-11-05
 
 - Added unit tests
