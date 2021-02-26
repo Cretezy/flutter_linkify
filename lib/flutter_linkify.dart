@@ -156,6 +156,9 @@ class SelectableLinkify extends StatelessWidget {
   /// Text direction of the text
   final TextDirection textDirection;
 
+  /// The minimum number of lines to occupy when the content spans fewer lines.
+  final int minLines;
+
   /// The maximum number of lines for the text to span, wrapping if necessary
   final int maxLines;
 
@@ -212,6 +215,7 @@ class SelectableLinkify extends StatelessWidget {
     // RichText
     this.textAlign,
     this.textDirection,
+    this.minLines,
     this.maxLines,
     // SelectableText
     this.focusNode,
@@ -254,6 +258,7 @@ class SelectableLinkify extends StatelessWidget {
       ),
       textAlign: textAlign,
       textDirection: textDirection,
+      minLines: minLines,
       maxLines: maxLines,
       focusNode: focusNode,
       strutStyle: strutStyle,
