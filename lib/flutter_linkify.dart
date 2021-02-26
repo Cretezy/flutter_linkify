@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:linkify/linkify.dart';
 
 export 'package:linkify/linkify.dart'
@@ -277,6 +278,20 @@ class SelectableLinkify extends StatelessWidget {
   }
 }
 
+class LinkableSpan extends WidgetSpan {
+  LinkableSpan({
+    @required MouseCursor mouseCursor,
+    @required InlineSpan inlineSpan,
+  }) : super(
+    child: MouseRegion(
+      cursor: mouseCursor,
+      child: Text.rich(
+        inlineSpan,
+      ),
+    ),
+  );
+}
+
 /// Raw TextSpan builder for more control on the RichText
 TextSpan buildTextSpan(
   List<LinkifyElement> elements, {
@@ -285,20 +300,28 @@ TextSpan buildTextSpan(
   LinkCallback onOpen,
 }) {
   return TextSpan(
-    children: elements.map<TextSpan>(
-      (element) {
+    children: elements.map<WidgetSpan>(
+          (element) {
         if (element is LinkableElement) {
-          return TextSpan(
-            text: element.text,
-            style: linkStyle,
-            recognizer: onOpen != null
-                ? (TapGestureRecognizer()..onTap = () => onOpen(element))
-                : null,
+          return LinkableSpan(
+            mouseCursor: SystemMouseCursors.click,
+            inlineSpan: TextSpan(
+              text: element.text,
+              style: linkStyle,
+              recognizer: onOpen != null
+                  ? (TapGestureRecognizer()
+                ..onTap = () => onOpen(element))
+                  : null,
+            ),
           );
         } else {
-          return TextSpan(
-            text: element.text,
-            style: style,
+          return WidgetSpan(
+            child: Text.rich(
+                TextSpan(
+                  text: element.text,
+                  style: style,
+                )
+            ),
           );
         }
       },
