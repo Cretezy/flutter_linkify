@@ -16,7 +16,7 @@ export 'package:linkify/linkify.dart'
         EmailLinkifier;
 
 /// Callback clicked link
-typedef LinkCallback = Function(LinkableElement link);
+typedef LinkCallback(LinkableElement link);
 
 /// Turns URLs into links
 class Linkify extends StatelessWidget {
