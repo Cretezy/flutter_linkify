@@ -4,12 +4,12 @@ description: flutter_linkify example
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  url_launcher: ^5.0.1
+  url_launcher: ^6.0.2
   flutter_linkify:
     path: ..
 

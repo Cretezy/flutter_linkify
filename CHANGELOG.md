@@ -1,3 +1,7 @@
+## [5.0.0] - 2021-03-04
+
+- Add null-safety support. Now required Dart >=2.12
+
 ## [4.1.0] - 2020-02-26
 
 - Make mouse hover a pointer ([#70](https://github.com/Cretezy/flutter_linkify/pull/70), thanks [gsvano](https://github.com/gsvano)!)
