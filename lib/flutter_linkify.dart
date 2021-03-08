@@ -303,20 +303,6 @@ class SelectableLinkify extends StatelessWidget {
   }
 }
 
-class LinkableSpan extends WidgetSpan {
-  LinkableSpan({
-    required MouseCursor mouseCursor,
-    required InlineSpan inlineSpan,
-  }) : super(
-          child: MouseRegion(
-            cursor: mouseCursor,
-            child: Text.rich(
-              inlineSpan,
-            ),
-          ),
-        );
-}
-
 /// Raw TextSpan builder for more control on the RichText
 TextSpan buildTextSpan(
   List<LinkifyElement> elements, {
@@ -325,25 +311,18 @@ TextSpan buildTextSpan(
   LinkCallback? onOpen,
 }) {
   return TextSpan(
-    children: elements.map<WidgetSpan>(
+    children: elements.map<TextSpan>(
       (element) {
         if (element is LinkableElement) {
-          return LinkableSpan(
-            mouseCursor: SystemMouseCursors.click,
-            inlineSpan: TextSpan(
-              text: element.text,
-              style: linkStyle,
-              recognizer: onOpen != null
-                  ? (TapGestureRecognizer()..onTap = () => onOpen(element))
-                  : null,
-            ),
+          return TextSpan(
+            text: element.text,
+            style: linkStyle,
+            recognizer: onOpen != null ? (TapGestureRecognizer()..onTap = () => onOpen(element)) : null,
           );
         } else {
-          return WidgetSpan(
-            child: Text.rich(TextSpan(
-              text: element.text,
-              style: style,
-            )),
+          return TextSpan(
+            text: element.text,
+            style: style,
           );
         }
       },
