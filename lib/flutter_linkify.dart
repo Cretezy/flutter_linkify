@@ -137,6 +137,9 @@ class SelectableLinkify extends StatelessWidget {
   /// Text to be linkified
   final String text;
 
+  /// The number of font pixels for each logical pixel
+  final textScaleFactor;
+
   /// Linkifiers to be used for linkify
   final List<Linkifier> linkifiers;
 
@@ -237,6 +240,7 @@ class SelectableLinkify extends StatelessWidget {
     this.maxLines,
     // SelectableText
     this.focusNode,
+    this.textScaleFactor = 1.0,
     this.strutStyle,
     this.showCursor = false,
     this.autofocus = false,
@@ -285,6 +289,7 @@ class SelectableLinkify extends StatelessWidget {
       focusNode: focusNode,
       strutStyle: strutStyle,
       showCursor: showCursor,
+      textScaleFactor: textScaleFactor,
       autofocus: autofocus,
       toolbarOptions: toolbarOptions,
       cursorWidth: cursorWidth,
