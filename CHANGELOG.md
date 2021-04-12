@@ -1,3 +1,7 @@
+## [5.0.1] - 2021-04-12
+
+- Fix for `maxLines` ([#80](https://github.com/Cretezy/flutter_linkify/pull/85), thanks [ChristianGaertner](https://github.com/ChristianGaertner)!)
+
 ## [5.0.0] - 2021-03-04
 
 - Add null-safety support. Now required Dart >=2.12
