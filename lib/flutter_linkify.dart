@@ -325,7 +325,7 @@ TextSpan buildTextSpan(
   LinkCallback? onOpen,
 }) {
   return TextSpan(
-    children: elements.map<WidgetSpan>(
+    children: elements.map<InlineSpan>(
       (element) {
         if (element is LinkableElement) {
           return LinkableSpan(
@@ -339,11 +339,9 @@ TextSpan buildTextSpan(
             ),
           );
         } else {
-          return WidgetSpan(
-            child: Text.rich(TextSpan(
-              text: element.text,
-              style: style,
-            )),
+          return TextSpan(
+            text: element.text,
+            style: style,
           );
         }
       },
