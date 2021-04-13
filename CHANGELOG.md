@@ -1,3 +1,7 @@
+## [5.0.2] - 2021-04-12
+
+-  Fix SelectableText only supports TextSpan exception for Flutter 2 ([#80](https://github.com/Cretezy/flutter_linkify/pull/80), thanks [MohamedEL-Torky](https://github.com/MohamedEL-Torky)!)
+
 ## [5.0.1] - 2021-04-12
 
 - Fix for `maxLines` ([#80](https://github.com/Cretezy/flutter_linkify/pull/85), thanks [ChristianGaertner](https://github.com/ChristianGaertner)!)
