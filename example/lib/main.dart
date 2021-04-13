@@ -4,12 +4,12 @@ import 'dart:async';
 
 import 'package:url_launcher/url_launcher.dart';
 
-void main() => runApp(new LinkifyExample());
+void main() => runApp(LinkifyExample());
 
 class LinkifyExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'flutter_linkify example',
       home: Scaffold(
@@ -22,12 +22,14 @@ class LinkifyExample extends StatelessWidget {
             Center(
               child: Linkify(
                 onOpen: _onOpen,
+                textScaleFactor: 2,
                 text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
               ),
             ),
             Center(
               child: SelectableLinkify(
                 onOpen: _onOpen,
+                textScaleFactor: 4,
                 text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
               ),
             ),
