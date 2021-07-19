@@ -16,24 +16,45 @@ class LinkifyExample extends StatelessWidget {
         appBar: AppBar(
           title: Text('flutter_linkify example'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Center(
-              child: Linkify(
-                onOpen: _onOpen,
-                textScaleFactor: 2,
-                text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+        body: SingleChildScrollView
+        (
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Center(
+                child: Linkify(
+                  onOpen: _onOpen,
+                  textScaleFactor: 2,
+                  text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+                ),
               ),
-            ),
-            Center(
-              child: SelectableLinkify(
-                onOpen: _onOpen,
-                textScaleFactor: 4,
-                text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+              Center(
+                child: Linkify(
+                  onOpen: _onOpen,
+                  textScaleFactor: 2,
+                  text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+                  prefixText: "Prefix Text: ",
+                  prefixTextStyle: TextStyle(color: Colors.green),
+                ),
               ),
-            ),
-          ],
+              Center(
+                child: SelectableLinkify(
+                  onOpen: _onOpen,
+                  textScaleFactor: 4,
+                  text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+                ),
+              ),
+              Center(
+                child: SelectableLinkify(
+                  onOpen: _onOpen,
+                  textScaleFactor: 4,
+                  text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+                  prefixText: "Prefix Text: ",
+                  prefixTextStyle: TextStyle(color: Colors.green),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
