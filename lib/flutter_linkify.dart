@@ -40,6 +40,12 @@ class Linkify extends StatelessWidget {
   /// Style of link text
   final TextStyle? linkStyle;
 
+  /// Text to be displayed before the main [text]
+  final String? prefixText;
+
+  /// Style for [prefixText]
+  final TextStyle? prefixTextStyle;
+
   // Text.rich
 
   /// How the text should be aligned horizontally.
@@ -82,6 +88,8 @@ class Linkify extends StatelessWidget {
     // TextSpan
     this.style,
     this.linkStyle,
+    this.prefixText,
+    this.prefixTextStyle,
     // RichText
     this.textAlign = TextAlign.start,
     this.textDirection,
@@ -118,6 +126,8 @@ class Linkify extends StatelessWidget {
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
+        prefixText: prefixText,
+        prefixTextStyle: prefixTextStyle,
       ),
       textAlign: textAlign,
       textDirection: textDirection,
@@ -157,6 +167,12 @@ class SelectableLinkify extends StatelessWidget {
 
   /// Style of link text
   final TextStyle? linkStyle;
+
+  /// Text to be displayed before the main [text]
+  final String? prefixText;
+
+  /// Style for [prefixText]
+  final TextStyle? prefixTextStyle;
 
   // Text.rich
 
@@ -234,6 +250,8 @@ class SelectableLinkify extends StatelessWidget {
     // TextSpan
     this.style,
     this.linkStyle,
+    this.prefixText,
+    this.prefixTextStyle,
     // RichText
     this.textAlign,
     this.textDirection,
@@ -282,6 +300,8 @@ class SelectableLinkify extends StatelessWidget {
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
+        prefixText: prefixText,
+        prefixTextStyle: prefixTextStyle,
       ),
       textAlign: textAlign,
       textDirection: textDirection,
@@ -330,8 +350,12 @@ TextSpan buildTextSpan(
   TextStyle? linkStyle,
   LinkCallback? onOpen,
   bool useMouseRegion = false,
+  String? prefixText,
+  TextStyle? prefixTextStyle,
 }) {
   return TextSpan(
+    text: prefixText,
+    style: prefixTextStyle,
     children: elements.map<InlineSpan>(
       (element) {
         if (element is LinkableElement) {
