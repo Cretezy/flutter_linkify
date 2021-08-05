@@ -112,13 +112,12 @@ class Linkify extends StatelessWidget {
         style: style ?? Theme.of(context).textTheme.bodyText2,
         onOpen: onOpen,
         useMouseRegion: useMouseRegion,
-        linkStyle: style
-                ?.copyWith(
-                  color: Colors.blueAccent,
-                  decoration: TextDecoration.underline,
-                )
-                .merge(linkStyle) ??
-            Theme.of(context).textTheme.bodyText2,
+        linkStyle: (style ?? Theme.of(context).textTheme.bodyText2)
+            ?.copyWith(
+              color: Colors.blueAccent,
+              decoration: TextDecoration.underline,
+            )
+            .merge(linkStyle),
       ),
       textAlign: textAlign,
       textDirection: textDirection,
@@ -277,13 +276,12 @@ class SelectableLinkify extends StatelessWidget {
         elements,
         style: style ?? Theme.of(context).textTheme.bodyText2,
         onOpen: onOpen,
-        linkStyle: style
-                ?.copyWith(
-                  color: Colors.blueAccent,
-                  decoration: TextDecoration.underline,
-                )
-                .merge(linkStyle) ??
-            Theme.of(context).textTheme.bodyText2,
+        linkStyle: (style ?? Theme.of(context).textTheme.bodyText2)
+            ?.copyWith(
+              color: Colors.blueAccent,
+              decoration: TextDecoration.underline,
+            )
+            .merge(linkStyle),
         useMouseRegion: useMouseRegion,
       ),
       textAlign: textAlign,
