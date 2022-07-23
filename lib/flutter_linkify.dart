@@ -361,3 +361,30 @@ TextSpan buildTextSpan(
     ).toList(),
   );
 }
+
+class LinkifySpan extends TextSpan {
+  LinkifySpan({
+    required String text,
+    TextStyle? linkStyle,
+    LinkCallback? onOpen,
+    LinkifyOptions options = const LinkifyOptions(),
+    List<Linkifier> linkifiers = defaultLinkifiers,
+    bool useMouseRegion = false,
+    super.style,
+    super.recognizer,
+    super.mouseCursor,
+    super.onEnter,
+    super.onExit,
+    super.semanticsLabel,
+    super.locale,
+    super.spellOut,
+  }) : super(children: [
+          buildTextSpan(
+            linkify(text, options: options, linkifiers: linkifiers),
+            style: style,
+            linkStyle: linkStyle,
+            onOpen: onOpen,
+            useMouseRegion: useMouseRegion,
+          ),
+        ]);
+}
