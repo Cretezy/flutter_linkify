@@ -3,9 +3,9 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Linkify renders text', (tester) async {
+  testWidgets('SelectableLinkify renders text', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: Linkify(
+      home: SelectableLinkify(
         text: 'Test https://google.com',
       ),
     ));
@@ -13,9 +13,10 @@ void main() {
     expect(find.text('Test google.com'), findsOneWidget);
   });
 
-  testWidgets('Linkify renders text without humanizing', (tester) async {
+  testWidgets('SelectableLinkify renders text without humanizing',
+      (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: Linkify(
+      home: SelectableLinkify(
         text: 'Test https://google.com',
         options: LinkifyOptions(
           humanize: false,
@@ -26,9 +27,9 @@ void main() {
     expect(find.text('Test https://google.com'), findsOneWidget);
   });
 
-  testWidgets('Linkify renders text with loose URLs', (tester) async {
+  testWidgets('SelectableLinkify renders text with loose URLs', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: Linkify(
+      home: SelectableLinkify(
         text: 'Test google.com',
         options: LinkifyOptions(
           looseUrl: true,
@@ -39,9 +40,9 @@ void main() {
     expect(find.text('Test google.com'), findsOneWidget);
   });
 
-  testWidgets('Linkify renders without remove WWW', (tester) async {
+  testWidgets('SelectableLinkify renders without remove WWW', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: Linkify(
+      home: SelectableLinkify(
         text: 'Test www.google.com',
       ),
     ));
@@ -49,9 +50,9 @@ void main() {
     expect(find.text('Test www.google.com'), findsOneWidget);
   });
 
-  testWidgets('Linkify renders with remove WWW', (tester) async {
+  testWidgets('SelectableLinkify renders with remove WWW', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: Linkify(
+      home: SelectableLinkify(
         text: 'Test www.google.com',
         options: LinkifyOptions(
           removeWww: true,
