@@ -73,6 +73,8 @@ class Linkify extends StatelessWidget {
   /// Defines how the paragraph will apply TextStyle.height to the ascent of the first line and descent of the last line.
   final TextHeightBehavior? textHeightBehavior;
 
+  final bool useMouseRegion;
+
   const Linkify({
     Key? key,
     required this.text,
@@ -93,6 +95,7 @@ class Linkify extends StatelessWidget {
     this.locale,
     this.textWidthBasis = TextWidthBasis.parent,
     this.textHeightBehavior,
+    this.useMouseRegion = true,
   }) : super(key: key);
 
   @override
@@ -106,14 +109,11 @@ class Linkify extends StatelessWidget {
     return Text.rich(
       buildTextSpan(
         elements,
-        style: Theme.of(context).textTheme.bodyText2?.merge(style),
+        style: style ?? Theme.of(context).textTheme.bodyText2,
         onOpen: onOpen,
-        useMouseRegion: true,
-        linkStyle: Theme.of(context)
-            .textTheme
-            .bodyText2
-            ?.merge(style)
-            .copyWith(
+        useMouseRegion: useMouseRegion,
+        linkStyle: (style ?? Theme.of(context).textTheme.bodyText2)
+            ?.copyWith(
               color: Colors.blueAccent,
               decoration: TextDecoration.underline,
             )
@@ -225,6 +225,8 @@ class SelectableLinkify extends StatelessWidget {
   /// Called when the user changes the selection of text (including the cursor location).
   final SelectionChangedCallback? onSelectionChanged;
 
+  final bool useMouseRegion;
+
   const SelectableLinkify({
     Key? key,
     required this.text,
@@ -258,6 +260,7 @@ class SelectableLinkify extends StatelessWidget {
     this.cursorHeight,
     this.selectionControls,
     this.onSelectionChanged,
+    this.useMouseRegion = false,
   }) : super(key: key);
 
   @override
@@ -271,17 +274,15 @@ class SelectableLinkify extends StatelessWidget {
     return SelectableText.rich(
       buildTextSpan(
         elements,
-        style: Theme.of(context).textTheme.bodyText2?.merge(style),
+        style: style ?? Theme.of(context).textTheme.bodyText2,
         onOpen: onOpen,
-        linkStyle: Theme.of(context)
-            .textTheme
-            .bodyText2
-            ?.merge(style)
-            .copyWith(
+        linkStyle: (style ?? Theme.of(context).textTheme.bodyText2)
+            ?.copyWith(
               color: Colors.blueAccent,
               decoration: TextDecoration.underline,
             )
             .merge(linkStyle),
+        useMouseRegion: useMouseRegion,
       ),
       textAlign: textAlign,
       textDirection: textDirection,
