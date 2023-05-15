@@ -52,7 +52,7 @@ class Linkify extends StatelessWidget {
   final int? maxLines;
 
   /// How visual overflow should be handled.
-  final TextOverflow overflow;
+  final TextOverflow overflow?;
 
   /// The number of font pixels for each logical pixel
   final double textScaleFactor;
