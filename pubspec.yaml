@@ -4,7 +4,7 @@ version: 5.0.2
 homepage: https://github.com/Cretezy/flutter_linkify
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
   flutter: ">=1.13.8"
 
 dependencies:

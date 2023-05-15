@@ -331,38 +331,64 @@ TextSpan buildTextSpan(
   TextStyle? linkStyle,
   LinkCallback? onOpen,
   bool useMouseRegion = false,
-}) {
-  return TextSpan(
-    children: elements.map<InlineSpan>(
-      (element) {
-        if (element is LinkableElement) {
-          if (useMouseRegion) {
-            return LinkableSpan(
-              mouseCursor: SystemMouseCursors.click,
-              inlineSpan: TextSpan(
-                text: element.text,
-                style: linkStyle,
-                recognizer: onOpen != null
-                    ? (TapGestureRecognizer()..onTap = () => onOpen(element))
-                    : null,
-              ),
-            );
-          } else {
-            return TextSpan(
-              text: element.text,
-              style: linkStyle,
-              recognizer: onOpen != null
-                  ? (TapGestureRecognizer()..onTap = () => onOpen(element))
-                  : null,
-            );
-          }
-        } else {
-          return TextSpan(
+}) =>
+    TextSpan(
+      children: buildTextSpanChildren(
+        elements,
+        style: style,
+        linkStyle: linkStyle,
+        onOpen: onOpen,
+        useMouseRegion: useMouseRegion,
+      ),
+    );
+
+/// Raw TextSpan builder for more control on the RichText
+List<InlineSpan>? buildTextSpanChildren(
+  List<LinkifyElement> elements, {
+  TextStyle? style,
+  TextStyle? linkStyle,
+  LinkCallback? onOpen,
+  bool useMouseRegion = false,
+}) =>
+    [
+      for (var element in elements)
+        if (element is LinkableElement)
+          TextSpan(
+            text: element.text,
+            style: linkStyle,
+            recognizer: onOpen != null ? (TapGestureRecognizer()..onTap = () => onOpen(element)) : null,
+            mouseCursor: useMouseRegion ? SystemMouseCursors.click : null,
+          )
+        else
+          TextSpan(
             text: element.text,
             style: style,
-          );
-        }
-      },
-    ).toList(),
-  );
+          ),
+    ];
+
+class LinkifySpan extends TextSpan {
+  LinkifySpan({
+    required String text,
+    TextStyle? linkStyle,
+    LinkCallback? onOpen,
+    LinkifyOptions options = const LinkifyOptions(),
+    List<Linkifier> linkifiers = defaultLinkifiers,
+    bool useMouseRegion = false,
+    super.style,
+    super.recognizer,
+    super.mouseCursor,
+    super.onEnter,
+    super.onExit,
+    super.semanticsLabel,
+    super.locale,
+    super.spellOut,
+  }) : super(
+          children: buildTextSpanChildren(
+            linkify(text, options: options, linkifiers: linkifiers),
+            style: style,
+            linkStyle: linkStyle,
+            onOpen: onOpen,
+            useMouseRegion: useMouseRegion,
+          ),
+        );
 }
