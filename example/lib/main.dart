@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:linkify/linkify.dart';
 import 'dart:async';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -20,17 +21,29 @@ class LinkifyExample extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Center(
-              child: Linkify(
-                onOpen: _onOpen,
-                textScaleFactor: 2,
-                text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
-              ),
-            ),
-            Center(
-              child: SelectableLinkify(
-                onOpen: _onOpen,
-                textScaleFactor: 4,
-                text: "Made by https://cretezy.com\n\nMail: example@gmail.com",
+              child: Column(
+                children: [
+                  Linkify(
+                    onOpen: _onOpen,
+                    text:
+                        "Made by https://cretezy.com\n\nMail: example@gmail.com",
+                  ),
+                  SizedBox(height: 64),
+                  SelectableLinkify(
+                    onOpen: _onOpen,
+                    text:
+                        "Made by https://cretezy.com\n\nMail: example@gmail.com",
+                  ),
+                  SizedBox(height: 64),
+                  Linkify(
+                    onOpen: print,
+                    text: "@Cretezy +123456789",
+                    linkifiers: [
+                      const UserTagLinkifier(),
+                      const PhoneNumberLinkifier(),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -40,10 +53,8 @@ class LinkifyExample extends StatelessWidget {
   }
 
   Future<void> _onOpen(LinkableElement link) async {
-    if (await canLaunch(link.url)) {
-      await launch(link.url);
-    } else {
-      throw 'Could not launch $link';
+    if (!await launchUrl(Uri.parse(link.url))) {
+      throw Exception('Could not launch ${link.url}');
     }
   }
 }

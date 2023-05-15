@@ -1,6 +1,15 @@
+## [6.0.0] - 2023-05-15
+
+- Update to `linkify` v5
+- Make sure it works with latest Flutter
+- Merge Add LinkifySpan ([#108](https://github.com/Cretezy/flutter_linkify/pull/108))
+- Merge Fix unit tests ([#111](https://github.com/Cretezy/flutter_linkify/pull/111))
+- Merge Use bodyText2 only if there's no style passed in parameters ([#96](https://github.com/Cretezy/flutter_linkify/pull/96))
+  - Now uses `bodyMedium`
+
 ## [5.0.2] - 2021-04-12
 
--  Fix SelectableText only supports TextSpan exception for Flutter 2 ([#80](https://github.com/Cretezy/flutter_linkify/pull/80), thanks [MohamedEL-Torky](https://github.com/MohamedEL-Torky)!)
+- Fix SelectableText only supports TextSpan exception for Flutter 2 ([#80](https://github.com/Cretezy/flutter_linkify/pull/80), thanks [MohamedEL-Torky](https://github.com/MohamedEL-Torky)!)
 
 ## [5.0.1] - 2021-04-12
 
@@ -29,6 +38,7 @@
 - Added minimum Flutter version of 1.13.8 ([#44](https://github.com/Cretezy/flutter_linkify/issues/44), thanks [@jamesderlin](https://github.com/jamesderlin)!)
 
 **Major version has been bumped**:
+
 - `linkify` (the underlying parsing library) has been upgrade to v3
   - Expand parsing to `www.` URLs ([#21](https://github.com/Cretezy/linkify/pull/21), thanks [@SpencerLindemuth](https://github.com/SpencerLindemuth)!)
   - Add `\r` parsing, requires Dart >=2.4 ([#26](https://github.com/Cretezy/linkify/pull/26), thanks [@hpoul](https://github.com/hpoul)!)
@@ -61,7 +71,7 @@
 ## [2.1.0] - 2019-03-23
 
 - Split to [`linkify`](https://github.com/Cretezy/linkify) package.
-  - This *might* break if you were using the internal `linkify` method.
+  - This _might_ break if you were using the internal `linkify` method.
 - Add text alignment ([#11](https://github.com/Cretezy/flutter_linkify/issues/11)).
 
 ## [2.0.0] - 2019-03-17

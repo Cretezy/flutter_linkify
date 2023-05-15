@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:linkify/linkify.dart';
 
 export 'package:linkify/linkify.dart'
@@ -52,7 +51,7 @@ class Linkify extends StatelessWidget {
   final int? maxLines;
 
   /// How visual overflow should be handled.
-  final TextOverflow overflow?;
+  final TextOverflow? overflow;
 
   /// The number of font pixels for each logical pixel
   final double textScaleFactor;
@@ -109,10 +108,10 @@ class Linkify extends StatelessWidget {
     return Text.rich(
       buildTextSpan(
         elements,
-        style: style ?? Theme.of(context).textTheme.bodyText2,
+        style: style ?? Theme.of(context).textTheme.bodyMedium,
         onOpen: onOpen,
         useMouseRegion: useMouseRegion,
-        linkStyle: (style ?? Theme.of(context).textTheme.bodyText2)
+        linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
             ?.copyWith(
               color: Colors.blueAccent,
               decoration: TextDecoration.underline,
@@ -139,7 +138,7 @@ class SelectableLinkify extends StatelessWidget {
   final String text;
 
   /// The number of font pixels for each logical pixel
-  final textScaleFactor;
+  final double textScaleFactor;
 
   /// Linkifiers to be used for linkify
   final List<Linkifier> linkifiers;
@@ -189,8 +188,8 @@ class SelectableLinkify extends StatelessWidget {
   /// Whether this text field should focus itself if nothing else is already focused.
   final bool autofocus;
 
-  /// Configuration of toolbar options
-  final ToolbarOptions? toolbarOptions;
+  /// Builds the text selection toolbar when requested by the user
+  final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   /// How thick the cursor will be
   final double cursorWidth;
@@ -247,7 +246,7 @@ class SelectableLinkify extends StatelessWidget {
     this.strutStyle,
     this.showCursor = false,
     this.autofocus = false,
-    this.toolbarOptions,
+    this.contextMenuBuilder,
     this.cursorWidth = 2.0,
     this.cursorRadius,
     this.cursorColor,
@@ -274,9 +273,9 @@ class SelectableLinkify extends StatelessWidget {
     return SelectableText.rich(
       buildTextSpan(
         elements,
-        style: style ?? Theme.of(context).textTheme.bodyText2,
+        style: style ?? Theme.of(context).textTheme.bodyMedium,
         onOpen: onOpen,
-        linkStyle: (style ?? Theme.of(context).textTheme.bodyText2)
+        linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
             ?.copyWith(
               color: Colors.blueAccent,
               decoration: TextDecoration.underline,
@@ -293,7 +292,7 @@ class SelectableLinkify extends StatelessWidget {
       showCursor: showCursor,
       textScaleFactor: textScaleFactor,
       autofocus: autofocus,
-      toolbarOptions: toolbarOptions,
+      contextMenuBuilder: contextMenuBuilder,
       cursorWidth: cursorWidth,
       cursorRadius: cursorRadius,
       cursorColor: cursorColor,
@@ -356,7 +355,9 @@ List<InlineSpan>? buildTextSpanChildren(
           TextSpan(
             text: element.text,
             style: linkStyle,
-            recognizer: onOpen != null ? (TapGestureRecognizer()..onTap = () => onOpen(element)) : null,
+            recognizer: onOpen != null
+                ? (TapGestureRecognizer()..onTap = () => onOpen(element))
+                : null,
             mouseCursor: useMouseRegion ? SystemMouseCursors.click : null,
           )
         else

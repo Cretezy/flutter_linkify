@@ -2,7 +2,7 @@
 
 Turns text URLs and emails into clickable inline links in text for Flutter.
 
-Required Dart >=2.12 (has null-safety support).
+Required Dart >=2.17 (has null-safety support).
 
 [Pub](https://pub.dartlang.org/packages/flutter_linkify) - [API Docs](https://pub.dartlang.org/documentation/flutter_linkify/latest/) - [GitHub](https://github.com/Cretezy/flutter_linkify)
 
@@ -12,7 +12,7 @@ Install by adding this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_linkify: ^5.0.2
+  flutter_linkify: ^6.0.0
 ```
 
 It is highly recommend that you also add a dependency on [`url_launcher`](https://pub.dartlang.org/packages/url_launcher) to open links in the browser/OS.
@@ -40,11 +40,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 Linkify(
   onOpen: (link) async {
-    if (await canLaunch(link.url)) {
-        await launch(link.url);
-      } else {
-        throw 'Could not launch $link';
-      }
+    if (!await launchUrl(Uri.parse(link.url))) {
+      throw Exception('Could not launch ${link.url}');
+    }
   },
   text: "Made by https://cretezy.com",
   style: TextStyle(color: Colors.yellow),
