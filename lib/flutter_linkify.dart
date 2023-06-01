@@ -4,15 +4,15 @@ import 'package:linkify/linkify.dart';
 
 export 'package:linkify/linkify.dart'
     show
-        LinkifyElement,
-        LinkifyOptions,
-        LinkableElement,
-        TextElement,
-        Linkifier,
-        UrlElement,
-        UrlLinkifier,
-        EmailElement,
-        EmailLinkifier;
+    LinkifyElement,
+    LinkifyOptions,
+    LinkableElement,
+    TextElement,
+    Linkifier,
+    UrlElement,
+    UrlLinkifier,
+    EmailElement,
+    EmailLinkifier;
 
 /// Callback clicked link
 typedef LinkCallback = void Function(LinkableElement link);
@@ -74,6 +74,10 @@ class Linkify extends StatelessWidget {
 
   final bool useMouseRegion;
 
+  final bool useOriginText;
+
+  final bool debug;
+
   const Linkify({
     Key? key,
     required this.text,
@@ -95,6 +99,8 @@ class Linkify extends StatelessWidget {
     this.textWidthBasis = TextWidthBasis.parent,
     this.textHeightBehavior,
     this.useMouseRegion = true,
+    this.useOriginText = false,
+    this.debug = false,
   }) : super(key: key);
 
   @override
@@ -113,10 +119,12 @@ class Linkify extends StatelessWidget {
         useMouseRegion: useMouseRegion,
         linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
             ?.copyWith(
-              color: Colors.blueAccent,
-              decoration: TextDecoration.underline,
-            )
+          color: Colors.blueAccent,
+          decoration: TextDecoration.underline,
+        )
             .merge(linkStyle),
+        useOriginText: useOriginText,
+        debug: debug,
       ),
       textAlign: textAlign,
       textDirection: textDirection,
@@ -226,6 +234,10 @@ class SelectableLinkify extends StatelessWidget {
 
   final bool useMouseRegion;
 
+  final bool useOriginText;
+
+  final bool debug;
+
   const SelectableLinkify({
     Key? key,
     required this.text,
@@ -260,6 +272,8 @@ class SelectableLinkify extends StatelessWidget {
     this.selectionControls,
     this.onSelectionChanged,
     this.useMouseRegion = false,
+    this.useOriginText = false,
+    this.debug = false,
   }) : super(key: key);
 
   @override
@@ -272,16 +286,18 @@ class SelectableLinkify extends StatelessWidget {
 
     return SelectableText.rich(
       buildTextSpan(
-        elements,
-        style: style ?? Theme.of(context).textTheme.bodyMedium,
-        onOpen: onOpen,
-        linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
-            ?.copyWith(
-              color: Colors.blueAccent,
-              decoration: TextDecoration.underline,
-            )
-            .merge(linkStyle),
-        useMouseRegion: useMouseRegion,
+          elements,
+          style: style ?? Theme.of(context).textTheme.bodyMedium,
+          onOpen: onOpen,
+          linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
+              ?.copyWith(
+            color: Colors.blueAccent,
+            decoration: TextDecoration.underline,
+          )
+              .merge(linkStyle),
+          useMouseRegion: useMouseRegion,
+          useOriginText: useOriginText,
+          debug: debug,
       ),
       textAlign: textAlign,
       textDirection: textDirection,
@@ -314,23 +330,25 @@ class LinkableSpan extends WidgetSpan {
     required MouseCursor mouseCursor,
     required InlineSpan inlineSpan,
   }) : super(
-          child: MouseRegion(
-            cursor: mouseCursor,
-            child: Text.rich(
-              inlineSpan,
-            ),
-          ),
-        );
+    child: MouseRegion(
+      cursor: mouseCursor,
+      child: Text.rich(
+        inlineSpan,
+      ),
+    ),
+  );
 }
 
 /// Raw TextSpan builder for more control on the RichText
 TextSpan buildTextSpan(
-  List<LinkifyElement> elements, {
-  TextStyle? style,
-  TextStyle? linkStyle,
-  LinkCallback? onOpen,
-  bool useMouseRegion = false,
-}) =>
+    List<LinkifyElement> elements, {
+      TextStyle? style,
+      TextStyle? linkStyle,
+      LinkCallback? onOpen,
+      bool useMouseRegion = false,
+      bool useOriginText = false,
+      bool debug = false,
+    }) =>
     TextSpan(
       children: buildTextSpanChildren(
         elements,
@@ -338,28 +356,42 @@ TextSpan buildTextSpan(
         linkStyle: linkStyle,
         onOpen: onOpen,
         useMouseRegion: useMouseRegion,
+        useOriginText: useOriginText,
+        debug: debug,
       ),
     );
 
 /// Raw TextSpan builder for more control on the RichText
 List<InlineSpan>? buildTextSpanChildren(
-  List<LinkifyElement> elements, {
-  TextStyle? style,
-  TextStyle? linkStyle,
-  LinkCallback? onOpen,
-  bool useMouseRegion = false,
-}) =>
+    List<LinkifyElement> elements, {
+      TextStyle? style,
+      TextStyle? linkStyle,
+      LinkCallback? onOpen,
+      bool useMouseRegion = false,
+      bool useOriginText = false,
+      bool debug = false,
+    }) =>
     [
       for (var element in elements)
         if (element is LinkableElement)
-          TextSpan(
-            text: element.text,
-            style: linkStyle,
-            recognizer: onOpen != null
-                ? (TapGestureRecognizer()..onTap = () => onOpen(element))
-                : null,
-            mouseCursor: useMouseRegion ? SystemMouseCursors.click : null,
-          )
+          if (debug)
+            TextSpan(
+              text: element.toString(),
+              style: linkStyle,
+              recognizer: onOpen != null
+                  ? (TapGestureRecognizer()..onTap = () => onOpen(element))
+                  : null,
+              mouseCursor: useMouseRegion ? SystemMouseCursors.click : null,
+            )
+          else
+            TextSpan(
+              text: useOriginText ? element.originText : element.text,
+              style: linkStyle,
+              recognizer: onOpen != null
+                  ? (TapGestureRecognizer()..onTap = () => onOpen(element))
+                  : null,
+              mouseCursor: useMouseRegion ? SystemMouseCursors.click : null,
+            )
         else
           TextSpan(
             text: element.text,
@@ -375,6 +407,8 @@ class LinkifySpan extends TextSpan {
     LinkifyOptions options = const LinkifyOptions(),
     List<Linkifier> linkifiers = defaultLinkifiers,
     bool useMouseRegion = false,
+    bool useOriginText = false,
+    bool debug = false,
     super.style,
     super.recognizer,
     super.mouseCursor,
@@ -384,12 +418,14 @@ class LinkifySpan extends TextSpan {
     super.locale,
     super.spellOut,
   }) : super(
-          children: buildTextSpanChildren(
-            linkify(text, options: options, linkifiers: linkifiers),
-            style: style,
-            linkStyle: linkStyle,
-            onOpen: onOpen,
-            useMouseRegion: useMouseRegion,
-          ),
-        );
+    children: buildTextSpanChildren(
+      linkify(text, options: options, linkifiers: linkifiers),
+      style: style,
+      linkStyle: linkStyle,
+      onOpen: onOpen,
+      useMouseRegion: useMouseRegion,
+      useOriginText: useOriginText,
+      debug: debug,
+    ),
+  );
 }
