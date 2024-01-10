@@ -292,7 +292,7 @@ class SelectableLinkify extends StatelessWidget {
       showCursor: showCursor,
       textScaleFactor: textScaleFactor,
       autofocus: autofocus,
-      contextMenuBuilder: contextMenuBuilder,
+      contextMenuBuilder: contextMenuBuilder ?? defaultContextMenuBuilder,
       cursorWidth: cursorWidth,
       cursorRadius: cursorRadius,
       cursorColor: cursorColor,
@@ -392,4 +392,11 @@ class LinkifySpan extends TextSpan {
             useMouseRegion: useMouseRegion,
           ),
         );
+}
+
+Widget defaultContextMenuBuilder(
+    BuildContext context, EditableTextState editableTextState) {
+  return AdaptiveTextSelectionToolbar.editableText(
+    editableTextState: editableTextState,
+  );
 }
