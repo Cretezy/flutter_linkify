@@ -17,6 +17,9 @@ export 'package:linkify/linkify.dart'
 /// Callback clicked link
 typedef LinkCallback = void Function(LinkableElement link);
 
+/// Turns link to TextStyle
+typedef LinkStyleBuilder = TextStyle? Function(LinkableElement link);
+
 /// Turns URLs into links
 class Linkify extends StatelessWidget {
   /// Text to be linkified
@@ -37,7 +40,7 @@ class Linkify extends StatelessWidget {
   final TextStyle? style;
 
   /// Style of link text
-  final TextStyle? linkStyle;
+  final LinkStyleBuilder? linkStyleBuilder;
 
   // Text.rich
 
@@ -82,7 +85,7 @@ class Linkify extends StatelessWidget {
     this.options = const LinkifyOptions(),
     // TextSpan
     this.style,
-    this.linkStyle,
+    this.linkStyleBuilder,
     // RichText
     this.textAlign = TextAlign.start,
     this.textDirection,
@@ -111,12 +114,12 @@ class Linkify extends StatelessWidget {
         style: style ?? Theme.of(context).textTheme.bodyMedium,
         onOpen: onOpen,
         useMouseRegion: useMouseRegion,
-        linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
+        linkStyleBuilder: (link) => (style ?? Theme.of(context).textTheme.bodyMedium)
             ?.copyWith(
               color: Colors.blueAccent,
               decoration: TextDecoration.underline,
             )
-            .merge(linkStyle),
+            .merge(linkStyleBuilder?.call(link)),
       ),
       textAlign: textAlign,
       textDirection: textDirection,
@@ -155,7 +158,7 @@ class SelectableLinkify extends StatelessWidget {
   final TextStyle? style;
 
   /// Style of link text
-  final TextStyle? linkStyle;
+  final LinkStyleBuilder? linkStyleBuilder;
 
   // Text.rich
 
@@ -234,7 +237,7 @@ class SelectableLinkify extends StatelessWidget {
     this.options = const LinkifyOptions(),
     // TextSpan
     this.style,
-    this.linkStyle,
+    this.linkStyleBuilder,
     // RichText
     this.textAlign,
     this.textDirection,
@@ -275,12 +278,12 @@ class SelectableLinkify extends StatelessWidget {
         elements,
         style: style ?? Theme.of(context).textTheme.bodyMedium,
         onOpen: onOpen,
-        linkStyle: (style ?? Theme.of(context).textTheme.bodyMedium)
+        linkStyleBuilder:(link) => (style ?? Theme.of(context).textTheme.bodyMedium)
             ?.copyWith(
               color: Colors.blueAccent,
               decoration: TextDecoration.underline,
             )
-            .merge(linkStyle),
+            .merge(linkStyleBuilder?.call(link)),
         useMouseRegion: useMouseRegion,
       ),
       textAlign: textAlign,
@@ -327,7 +330,7 @@ class LinkableSpan extends WidgetSpan {
 TextSpan buildTextSpan(
   List<LinkifyElement> elements, {
   TextStyle? style,
-  TextStyle? linkStyle,
+  LinkStyleBuilder? linkStyleBuilder,
   LinkCallback? onOpen,
   bool useMouseRegion = false,
 }) =>
@@ -335,7 +338,7 @@ TextSpan buildTextSpan(
       children: buildTextSpanChildren(
         elements,
         style: style,
-        linkStyle: linkStyle,
+        linkStyleBuilder: linkStyleBuilder,
         onOpen: onOpen,
         useMouseRegion: useMouseRegion,
       ),
@@ -345,7 +348,7 @@ TextSpan buildTextSpan(
 List<InlineSpan>? buildTextSpanChildren(
   List<LinkifyElement> elements, {
   TextStyle? style,
-  TextStyle? linkStyle,
+  LinkStyleBuilder? linkStyleBuilder,
   LinkCallback? onOpen,
   bool useMouseRegion = false,
 }) =>
@@ -354,7 +357,7 @@ List<InlineSpan>? buildTextSpanChildren(
         if (element is LinkableElement)
           TextSpan(
             text: element.text,
-            style: linkStyle,
+            style: linkStyleBuilder?.call(element),
             recognizer: onOpen != null
                 ? (TapGestureRecognizer()..onTap = () => onOpen(element))
                 : null,
@@ -370,7 +373,7 @@ List<InlineSpan>? buildTextSpanChildren(
 class LinkifySpan extends TextSpan {
   LinkifySpan({
     required String text,
-    TextStyle? linkStyle,
+    LinkStyleBuilder? linkStyleBuilder,
     LinkCallback? onOpen,
     LinkifyOptions options = const LinkifyOptions(),
     List<Linkifier> linkifiers = defaultLinkifiers,
@@ -387,7 +390,7 @@ class LinkifySpan extends TextSpan {
           children: buildTextSpanChildren(
             linkify(text, options: options, linkifiers: linkifiers),
             style: style,
-            linkStyle: linkStyle,
+            linkStyleBuilder: linkStyleBuilder,
             onOpen: onOpen,
             useMouseRegion: useMouseRegion,
           ),
